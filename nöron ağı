@@ -1,0 +1,209 @@
+from random import random as rn
+from time import sleep as sl
+
+
+
+class bs:
+    def __init__(self,alpha,sonkatman,cktümliste,olumdeger,rrl):
+        self.rrl=rrl
+        self.snkatman=sonkatman #son katman = [son katman[nöronlar[bağlantılar[dog,kat]]]]
+        self.tm=tümliste
+        self.alpha=alpha
+        self.olumdeger=olumdeger
+        self.cıkt=0
+        self.delta=0
+        x=[]
+        for i in self.snkatman:
+            for ii in i:
+                x.append(ii[0])
+        if 1 in x:self.istenenvr=1
+        else:self.istenenvr=0
+    def kntrol(self):
+        tpi=0
+        for i in self.snkatman:
+            for ii in i:
+                ss=1
+                for iii in ii:
+                    ss=ss*iii
+                tpi=tpi+ss
+        if self.istenenvr==1:
+            if tpi>self.olumdeger:self.delta=0
+            else:self.delta=1
+        elif self.istenenvr==0:
+            if not tpi>self.olumdeger:self.delta=0
+            else:self.delta=-1
+    def dgstirmek(self):
+        self.dg=self.rrl
+        if not self.delta==0:
+            indx1=0
+            for i in self.rrl:
+                indx2=0
+                for ii in i:
+                    indx3=0
+                    for iii in ii:
+                        self.dg=dexes(self.dg,indx1,indx2,indx3,self.alpha,self.delta).liste
+                        indx3=indx3+1
+                    indx2=indx2+1
+                indx1=indx1+1
+            self.tmm=0
+        else:self.tmm=1
+class ktm:
+    def __init__(self,tümliste,ilkler):
+        self.katmanlars=tümliste
+        self.ilkkatman=ilkler
+        self.katmanlar=[]
+    #ilkler=[1,0,0,1,0]
+    #tümliste=[5,4,3,2,1] örnek
+    def listeolusturma(self):
+        for i in range(len(self.katmanlars)-1):#3 tekrar
+            if i==0:
+                self.katmanlar.append([])
+                a=0
+                b=0
+                for iii in range(self.katmanlars[1]):
+                    self.katmanlar[a].append([])
+                    for ii in self.ilkkatman:
+                        self.katmanlar[a][b].append([ii,rn()])
+                    b=b+1
+            else:
+                self.katmanlar.append([])
+                a=a+1
+                ind=0
+                for i in self.katmanlar[i-1]:print(i,"\n")
+                sl(199)
+                for iiii in range(self.katmanlars[i]):
+                    self.katmanlar[a].append([])
+                    
+                    for iiiii in self.katmanlar[i-1][ind]:
+                        if iiiii[0]*iiiii[1]>0:zz=1
+                        else:zz=0
+                        ek=[zz,rn()]
+                        self.katmanlar[a][ind].append([zz,rn()])
+                    ind=ind+1
+        self.katmanlar=self.katmanlar[1:]
+        #katmanlar oluşturuluyor liste = [katmanlar[nöronlar[bağlantılar[dog,kat]]]
+        #son katman = [son katman[nöronlar[bağlantılar[dog,kat]]]]
+    def listekontrol(self,dglist):
+        self.dglist=dglist
+        for i in range(len(self.dglist)):
+            if not i==len(self.dglist)-1:
+                indx1=0
+                a=0
+                tplm=[]
+                for ii in self.dglist[i]:
+                    indx2=0
+                    tplm.append([])
+                    for iii in self.dglist[i][indx1]:# 1 0 iii=[]
+                        ss=1
+                        for iiii in iii:
+                            ss=ss*iiii
+                        if ss>0:zz=1
+                        else:zz=0
+                        tplm[a].append(zz)
+                        indx2=indx2+1
+                    indx1=indx1+1
+                    a=a+1
+                gndex1=0
+                for gg in self.dglist[i+1]:
+                    zglist=0
+                    for ggg in self.dglist[i+1][gndex1]:
+                        self.dglist[i+1][gndex1][zglist]=[tplm[gndex1][zglist],self.dglist[i+1][gndex1][zglist][1]]
+                        zglist=zglist+1
+                    gndex1=gndex1+1
+        
+        self.katmanlar=self.dglist
+class dexes:
+    def __init__(self,liste,indx1,indx2,indx3,alpha,delta):
+        self.liste=liste
+        self.liste[indx1][indx2][indx3][1]=self.liste[indx1][indx2][indx3][1]+alpha*delta
+
+    def sonkt(self):
+        sn=[]
+        a=0
+        for i in self.katmanlar[-1]:
+            sn.append([])
+            for ii in i:
+                if ii[0]*ii[1]>0:zz=1
+                else:zz=1
+                sn[a].append([zz,rn()])
+            a=a+1
+        return sn
+        #alınan liste döngü içinde tekrar doğruluk değerleri hesaplanıyor
+        #son katman = [son katman[nöronlar[bağlantılar[dog,kat]]]] liste olusturma ilr aynı
+
+
+#
+#    tp=0
+#    cıktsinirler = [bs(alpha,sonkatman,tümliste,olumdeger)]
+#    for i in cıktsinirler:
+#        tp=tp+i.cıkt
+#
+
+#
+# in:ck
+# in:ck  in:ck
+# in:ck  in:ck  in:ck
+# in:ck  in:ck  in:ck  in:ck  
+# in:ck  in:ck  in:ck  in:ck  in:ck
+#
+
+
+##########
+
+
+
+tkr=100000
+
+alpha=0.000099991
+
+tümliste=[3,2,4,2]
+
+ilkler=[0,0,1,0,1]
+
+istkeler=[5,10]
+
+
+
+kt=ktm(tümliste,ilkler)
+kt.listeolusturma()
+
+
+for i in kt.katmanlar:
+    for ii in i:
+        print(ii)
+    print("\n")
+print("----------*-----------*------------")
+print("\n\n\n\n\n\n")
+
+for iii in range(tkr):
+    ddg=[]
+    for nrn in range(tümliste[-1]):
+        b=bs(alpha,kt.katmanlar[-1],kt.katmanlar,istkeler[nrn],kt.katmanlar)
+        b.kntrol()
+        b.dgstirmek()
+        ddg.append(b.dg)
+    for iiii in ddg:
+        kt.listekontrol(iiii)
+
+
+
+print("\n\n\n\n\n\n")
+print("----------*-----------*------------")
+for i in kt.katmanlar:
+    for ii in i:
+        print(ii)
+    print("\n")
+if b.tmm==1:print("tamamdır")
+else:print("hayırrrr")
+
+bitti=input("bitirmek için tuşa bas :")
+
+
+
+
+
+
+
+
+
+
