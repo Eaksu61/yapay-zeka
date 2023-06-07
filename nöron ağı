@@ -69,11 +69,8 @@ class ktm:
                 self.katmanlar.append([])
                 a=a+1
                 ind=0
-                for i in self.katmanlar[i-1]:print(i,"\n")
-                sl(199)
                 for iiii in range(self.katmanlars[i]):
                     self.katmanlar[a].append([])
-                    
                     for iiiii in self.katmanlar[i-1][ind]:
                         if iiiii[0]*iiiii[1]>0:zz=1
                         else:zz=0
@@ -156,7 +153,7 @@ tkr=100000
 
 alpha=0.000099991
 
-tümliste=[3,2,4,2]
+tümliste=[5,4,4,4,4,4,2]
 
 ilkler=[0,0,1,0,1]
 
